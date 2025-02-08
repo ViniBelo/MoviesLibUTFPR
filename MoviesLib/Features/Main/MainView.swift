@@ -9,7 +9,12 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        MoviesView()
+        TabView {
+            MoviesView()
+                .tabItem {
+                    Label("Movies", systemImage: "movieclapper.fill")
+                }
+        }
     }
 }
 

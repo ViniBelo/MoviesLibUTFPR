@@ -10,16 +10,23 @@ import SwiftData
 import PhotosUI
 
 struct MovieFormView: View {
-    @State var movie: Movie
     @State private var selectedBanner: PhotosPickerItem?
     @State private var bannerData: Data?
+    @Bindable var movie: Movie
     @Binding var path: NavigationPath
     @Environment(\.modelContext) var modelContext
+    let buttonTitle: String
     
     init(movie: Movie? = nil, path: Binding<NavigationPath>) {
-        self.movie = movie ?? Movie()
-        self._path = path
-    }
+            if let movie {
+                self.movie = movie
+                buttonTitle = "Save Changes"
+            } else {
+                self.movie = Movie()
+                buttonTitle = "Add Movie"
+            }
+            self._path = path
+        }
     
     var body: some View {
         VStack {
@@ -67,6 +74,9 @@ struct MovieFormView: View {
                 movie.image = bannerData
             }
         }
+        .onAppear {
+            bannerData = movie.image
+        }
     }
     
     // MARK: - Save Button
@@ -75,7 +85,7 @@ struct MovieFormView: View {
             modelContext.insert(movie)
             path.removeLast()
         } label: {
-            Text("Save")
+            Text(buttonTitle)
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity)
         }

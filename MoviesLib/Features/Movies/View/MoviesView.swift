@@ -24,7 +24,7 @@ struct MoviesView: View {
                         case .detail(let movie):
                             MovieDetailView(movie: movie)
                         case .form(let movie):
-                        MovieFormView(movie: movie, path: $path)
+                            MovieFormView(movie: movie, path: $path)
                     }
                 }
                 .toolbar {

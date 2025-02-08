@@ -17,16 +17,15 @@ struct MovieListingRowView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 50, height: 70)
+                    .frame(width: 50, height: 80)
                     .cornerRadius(8)
-                    .shadow(radius: 4)
+                    .shadow(radius: 4, x: 2, y: 2)
             } else {
                 Image(systemName: "movieclapper")
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(Color.gray.opacity(0.3))
-                    .padding(40)
-                    .frame(width: 50, height: 50)
+                    .frame(width: 50, height: 80)
             }
             
             Text(movie.title)
