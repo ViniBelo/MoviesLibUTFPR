@@ -52,7 +52,7 @@ struct MovieDetailView: View {
             Image(systemName: "star.fill")
                 .foregroundColor(.yellow)
             
-            Text("\(movie.rating)")
+            Text("\(String(format: "%.1f", movie.rating))")
             
             Spacer()
             

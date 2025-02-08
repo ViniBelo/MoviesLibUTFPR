@@ -12,10 +12,10 @@ struct MovieListingRowView: View {
     
     var body: some View {
         HStack {
-            Image(movie.image)
+            Image(movie.imageSmall)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 50, height: 50)
+                .frame(width: 50, height: 70)
                 .cornerRadius(8)
                 .shadow(radius: 4)
             

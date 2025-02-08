@@ -8,32 +8,13 @@
 import SwiftUI
 
 struct MovieListingView: View {
-    var movies: [Movie] = {
-        guard let url = Bundle.main.url(forResource: "movies", withExtension: "json") else {
-            return []
-        }
-        
-        do {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let movies: [Movie] = try decoder.decode([Movie].self, from: data)
-            return movies
-        } catch {
-            print(error)
-        }
-        
-        return []
-    }()
+    var movies: [Movie] = []
     
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(movies) { movie in
-                    NavigationLink {
-                        MovieDetailView(movie: movie)
-                    } label: {
-                        MovieListingRowView(movie: movie)
-                    }
+        List {
+            ForEach(movies) { movie in
+                NavigationLink(value: NavigationScreen.detail(movie)) {
+                    MovieListingRowView(movie: movie)
                 }
             }
         }

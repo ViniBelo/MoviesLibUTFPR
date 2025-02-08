@@ -6,18 +6,29 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Movie: Decodable, Identifiable {
+@Model
+class Movie {
     var id: String {
         UUID().uuidString
     }
     
-    let title: String
-    let categories: String
-    let duration: String
-    let rating: Double
-    let summary: String
-    let image: String
+    var title: String
+    var categories: String
+    var duration: String
+    var rating: Double
+    var summary: String
+    var image: String
+    
+    init(title: String, categories: String, duration: String, rating: Double, summary: String, image: String) {
+        self.title = title
+        self.categories = categories
+        self.duration = duration
+        self.rating = rating
+        self.summary = summary
+        self.image = image
+    }
     
     var imageSmall: String {
         "\(image)small"
