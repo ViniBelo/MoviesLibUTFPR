@@ -26,9 +26,15 @@ struct MovieListingView: View {
     }()
     
     var body: some View {
-        List {
-            ForEach(movies) { movie in
-                MovieListingRowView(movie: movie)
+        NavigationStack {
+            List {
+                ForEach(movies) { movie in
+                    NavigationLink {
+                        MovieDetailView(movie: movie)
+                    } label: {
+                        MovieListingRowView(movie: movie)
+                    }
+                }
             }
         }
     }

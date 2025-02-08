@@ -9,6 +9,7 @@ import SwiftUI
 
 extension MovieDetailView {
     struct MovieSummaryView: View {
+        let summary: String
         var body: some View {
             VStack(alignment: .leading) {
                 Text("Synopsis")
@@ -18,7 +19,7 @@ extension MovieDetailView {
                     .padding(.horizontal)
                 
                 ScrollView {
-                    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor quam id massa faucibus dignissim. Nullam eget metus id nisl malesuada condimentum. Nam viverra fringilla erat, ut fermentum nunc feugiat eu.")
+                    Text(summary)
                 }
                 .padding(.horizontal)
                 .padding(.bottom)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MovieDetailView: View {
+    let movie: Movie
     var body: some View {
         VStack(spacing: 10) {
 
@@ -17,7 +18,7 @@ struct MovieDetailView: View {
                 rating
                 categories
                 playButton
-                MovieSummaryView()
+                MovieSummaryView(summary: movie.summary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
@@ -25,77 +26,88 @@ struct MovieDetailView: View {
             Spacer()
         }
     }
-}
-
-// MARK : - Poster
-var poster: some View {
-    Image("avengers")
-        .resizable()
-        .scaledToFill()
-        .frame(height: 400)
-        .clipped()
     
-}
-
-var title: some View {
-        Text("Avengers")
-            .font(.title)
-            .fontWeight(.bold)
-            .fontDesign(.rounded)
-            .multilineTextAlignment(.leading)
-}
-
-var rating: some View {
-    HStack {
-        Image(systemName: "star.fill")
-            .foregroundColor(.yellow)
+    // MARK : - Poster
+    var poster: some View {
+        Image(movie.image)
+            .resizable()
+            .scaledToFill()
+            .frame(height: 400)
+            .clipped()
         
-        Text("10.0")
-        
-        Spacer()
-        
-        ZStack {
-            Circle()
-                .frame(width: 34)
-                .foregroundStyle(Color.pink.opacity(0.3))
-            Image(systemName: "heart.fill")
-                .foregroundColor(.white)
-        }
     }
-}
 
-// MARK : - Categories
-var categories: some View {
-    Text("Sci-Fi, Action")
-}
+    // MARK : - Title
+    var title: some View {
+        Text(movie.title)
+                .font(.title)
+                .fontWeight(.bold)
+                .fontDesign(.rounded)
+                .multilineTextAlignment(.leading)
+    }
 
-// MARK : - Play Button
-var playButton: some View {
-    Button {
-        print("Play trailer")
-    } label: {
+    // MARK : - Rating
+    var rating: some View {
         HStack {
-            Image(systemName: "play.fill")
-                .padding(10)
-                .background(Color.white)
-                .cornerRadius(60)
+            Image(systemName: "star.fill")
+                .foregroundColor(.yellow)
             
-            Text("Trailer")
-                .fontWeight(.semibold)
-                .padding(.trailing)
-                .foregroundColor(.primary)
+            Text("\(movie.rating)")
+            
+            Spacer()
+            
+            ZStack {
+                Circle()
+                    .frame(width: 34)
+                    .foregroundStyle(Color.pink.opacity(0.3))
+                Image(systemName: "heart.fill")
+                    .foregroundColor(.white)
+            }
         }
-        .padding(3)
-        .background(Color.gray.opacity(0.2))
-        .cornerRadius(40)
     }
-}
 
-// MARK : - Summary
-var summary: some View {
-    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor quam id massa faucibus dignissim. Nullam eget metus id nisl malesuada condimentum. Nam viverra fringilla erat, ut fermentum nunc feugiat eu.")
+    // MARK : - Categories
+    var categories: some View {
+        Text(movie.categories)
+    }
+
+    // MARK : - Play Button
+    var playButton: some View {
+        Button {
+            print("Play trailer")
+        } label: {
+            HStack {
+                Image(systemName: "play.fill")
+                    .padding(10)
+                    .background(Color.white)
+                    .cornerRadius(60)
+                
+                Text("Trailer")
+                    .fontWeight(.semibold)
+                    .padding(.trailing)
+                    .foregroundColor(.primary)
+            }
+            .padding(3)
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(40)
+        }
+    }
+
+    // MARK : - Summary
+    var summary: some View {
+        Text(movie.summary)
+    }
 }
 
 #Preview {
-    MovieDetailView()
+    MovieDetailView(
+            movie: Movie(
+            title: "The Matrix",
+            categories: "Action, Sci-Fi",
+            duration: "2h 16m",
+            rating: 7.9,
+            summary: "A hacker discovers the true nature of reality and his role in a war against its controllers.",
+            image: "matrix"
+        )
+    )
 }
