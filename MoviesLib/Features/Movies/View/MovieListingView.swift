@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MovieListingView: View {
-    var movies: [Movie] = []
+    @Environment(\.modelContext) var modelContext
+    @Query private var movies: [Movie]
     
     var body: some View {
         List {
@@ -17,6 +19,14 @@ struct MovieListingView: View {
                     MovieListingRowView(movie: movie)
                 }
             }
+            .onDelete(perform: deleteMovie)
+        }
+    }
+    
+    func deleteMovie(_ indexSet: IndexSet) {
+        for index in indexSet {
+            let movie = movies[index]
+            modelContext.delete(movie)
         }
     }
 }

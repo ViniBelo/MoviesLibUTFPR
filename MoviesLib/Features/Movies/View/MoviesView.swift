@@ -9,7 +9,7 @@ import SwiftUI
 
 enum NavigationScreen: Hashable {
     case detail(Movie)
-    case form
+    case form(Movie?)
 }
 
 struct MoviesView: View {
@@ -23,13 +23,13 @@ struct MoviesView: View {
                     switch destination {
                         case .detail(let movie):
                             MovieDetailView(movie: movie)
-                        case .form:
-                            Text("Form")
+                        case .form(let movie):
+                        MovieFormView(movie: movie, path: $path)
                     }
                 }
                 .toolbar {
                     Button("", systemImage: "plus.circle.fill") {
-                        path = NavigationPath([NavigationScreen.form])
+                        path = NavigationPath([NavigationScreen.form(nil)])
                     }
                 }
         }

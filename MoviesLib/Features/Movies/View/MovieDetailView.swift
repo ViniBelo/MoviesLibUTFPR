@@ -28,13 +28,23 @@ struct MovieDetailView: View {
     }
     
     // MARK : - Poster
+    @ViewBuilder
     var poster: some View {
-        Image(movie.image)
-            .resizable()
-            .scaledToFill()
-            .frame(height: 400)
-            .clipped()
-        
+        if let image = movie.image,
+           let uiImage = UIImage(data: image) {
+            Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFill()
+                .frame(height: 400)
+                .clipped()
+        } else {
+            Image(systemName: "movieclapper")
+                .resizable()
+                .scaledToFit()
+                .foregroundStyle(Color.gray.opacity(0.3))
+                .padding(40)
+                .frame(width: 50, height: 50)
+        }
     }
 
     // MARK : - Title
@@ -107,7 +117,7 @@ struct MovieDetailView: View {
             duration: "2h 16m",
             rating: 7.9,
             summary: "A hacker discovers the true nature of reality and his role in a war against its controllers.",
-            image: "matrix"
+            image: nil
         )
     )
 }

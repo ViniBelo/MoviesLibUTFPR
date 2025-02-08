@@ -19,18 +19,21 @@ class Movie {
     var duration: String
     var rating: Double
     var summary: String
-    var image: String
+    var image: Data?
     
-    init(title: String, categories: String, duration: String, rating: Double, summary: String, image: String) {
+    init(
+        title: String = "",
+        categories: String = "",
+        duration: String = "",
+        rating: Double = 0.0,
+        summary: String = "",
+        image: Data? = nil
+    ) {
         self.title = title
         self.categories = categories
         self.duration = duration
         self.rating = rating
         self.summary = summary
         self.image = image
-    }
-    
-    var imageSmall: String {
-        "\(image)small"
     }
 }
