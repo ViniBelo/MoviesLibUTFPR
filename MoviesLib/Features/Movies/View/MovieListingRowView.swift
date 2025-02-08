@@ -28,13 +28,13 @@ struct MovieListingRowView: View {
 
 #Preview {
     MovieListingRowView(
-        movie: <#T##Movie#>(
+        movie: Movie(
             title: "The Matrix",
-            categories: "ajdijaow",
-            duration: "ajdijaow",
+            categories: "Action, Sci-Fi",
+            duration: "2h 16m",
             rating: 7.9,
-            summary: "ajdijaow",
-            image: "ajdijaow"
+            summary: "A hacker discovers the true nature of reality and his role in a war against its controllers.",
+            image: "matrix"
         )
     )
 }
