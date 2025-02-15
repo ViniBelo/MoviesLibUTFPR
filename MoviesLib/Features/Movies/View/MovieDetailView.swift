@@ -109,13 +109,17 @@ struct MovieDetailView: View {
         ZStack {
             Circle()
                 .frame(width: 34)
-                .foregroundStyle(Color.pink.opacity(0.3))
+                .foregroundStyle(isFavorite ? Color(.systemGray6) : Color.pink.opacity(0.3))
+                .scaleEffect(isFavorite ? 1.2 : 1.0)
             
             Image(systemName: "heart.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 16, height: 16)
-                .foregroundColor(.white)
+                .foregroundColor(isFavorite ? .red : .white)
+                .scaleEffect(isFavorite ? 1.5 : 1.0)
+                .rotationEffect(isFavorite ? .zero : .degrees(360))
+        }
+        .animation(.spring(bounce: 0.75), value: isFavorite)
+        .onTapGesture {
+            isFavorite.toggle()
         }
     }
 }
