@@ -14,7 +14,7 @@ struct MainView: View {
                 .tabItem {
                     Label("Movies", systemImage: "movieclapper.fill")
                 }
-            Text("Map")
+            MapView()
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }
