@@ -12,6 +12,16 @@ struct MovieListingView: View {
     @Environment(\.modelContext) var modelContext
     @Query private var movies: [Movie]
     
+    init(searchString: String) {
+        _movies = Query(filter: #Predicate {
+            if searchString.isEmpty {
+                return true
+            } else {
+                return $0.title.localizedStandardContains(searchString)
+            }
+        }, sort: [SortDescriptor(\Movie.title)])
+    }
+    
     var body: some View {
         List {
             ForEach(movies) { movie in
@@ -32,5 +42,5 @@ struct MovieListingView: View {
 }
 
 #Preview {
-    MovieListingView()
+    MovieListingView(searchString: "")
 }
