@@ -25,6 +25,11 @@ struct MovieDetailView: View {
             
             Spacer()
         }
+        .toolbar {
+            NavigationLink(value: NavigationScreen.form(movie)) {
+                Text("Edit")
+            }
+        }
     }
     
     // MARK : - Poster
