@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MovieDetailView: View {
     let movie: Movie
+    @State private var isFavorite: Bool = false
+    
     var body: some View {
         VStack(spacing: 10) {
 
@@ -48,7 +50,7 @@ struct MovieDetailView: View {
                 .scaledToFit()
                 .foregroundStyle(Color.gray.opacity(0.3))
                 .padding(40)
-                .frame(width: 50, height: 50)
+                .frame(width: 400)
         }
     }
 
@@ -71,13 +73,7 @@ struct MovieDetailView: View {
             
             Spacer()
             
-            ZStack {
-                Circle()
-                    .frame(width: 34)
-                    .foregroundStyle(Color.pink.opacity(0.3))
-                Image(systemName: "heart.fill")
-                    .foregroundColor(.white)
-            }
+            heart
         }
     }
 
@@ -108,9 +104,19 @@ struct MovieDetailView: View {
         }
     }
 
-    // MARK : - Summary
-    var summary: some View {
-        Text(movie.summary)
+    // MARK : - Heart
+    var heart: some View {
+        ZStack {
+            Circle()
+                .frame(width: 34)
+                .foregroundStyle(Color.pink.opacity(0.3))
+            
+            Image(systemName: "heart.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 16, height: 16)
+                .foregroundColor(.white)
+        }
     }
 }
 
