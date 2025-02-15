@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @AppStorage(AppStorageKeys.color) private var color = 0
     var body: some View {
         TabView {
             MoviesView()
@@ -18,10 +19,24 @@ struct MainView: View {
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }
-            Text("Adjusts")
+            SettingsView()
                 .tabItem {
                     Label("Adjusts", systemImage: "gearshape.fill")
                 }
+        }
+        .tint(colorFor(index: color))
+    }
+    
+    private func colorFor(index: Int) -> Color {
+        switch index {
+        case 0:
+            return .accentColor
+        case 1:
+            return .orange
+        case 2:
+            return .purple
+        default:
+            return .accentColor
         }
     }
 }
