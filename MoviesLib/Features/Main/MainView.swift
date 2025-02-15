@@ -14,6 +14,14 @@ struct MainView: View {
                 .tabItem {
                     Label("Movies", systemImage: "movieclapper.fill")
                 }
+            Text("Map")
+                .tabItem {
+                    Label("Map", systemImage: "map.fill")
+                }
+            Text("Adjusts")
+                .tabItem {
+                    Label("Adjusts", systemImage: "gearshape.fill")
+                }
         }
     }
 }
