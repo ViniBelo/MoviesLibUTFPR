@@ -24,7 +24,6 @@ extension MovieDetailView {
                 .padding(.horizontal)
                 .padding(.bottom)
             }
-            .frame(width: .infinity)
             .background(Color.gray.opacity(0.2))
             .cornerRadius(16)
             .padding(.vertical)
