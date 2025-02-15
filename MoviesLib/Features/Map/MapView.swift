@@ -9,24 +9,28 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    @State private var position: MapCameraPosition = .automatic
+    @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
     @State private var locationManager = CLLocationManager()
     @State private var searchText: String = ""
     @State private var selectedPOI: MKMapItem?
     @State private var pointsOfInterest: [MKMapItem] = []
     @State private var visibleRegion: MKCoordinateRegion?
-    
-    private let utfpr = CLLocationCoordinate2D(latitude: -26.1976857, longitude: -52.6901529)
+    @State private var route: MKRoute?
     
     var body: some View {
         NavigationStack {
             // POI: Points of Interest
             Map(position: $position, selection: $selectedPOI){
-//                Marker("UTFPR", systemImage: "building.2.fill", coordinate: utfpr)
                 UserAnnotation()
                 
                 ForEach(pointsOfInterest, id: \.self) { poi in
                     Marker(item: poi)
+                }
+                
+                if let route {
+                    MapPolyline(route)
+                        .stroke(.purple, lineWidth: 7)
+                        .mapOverlayLevel(level: .aboveRoads)
                 }
             }
             .mapControls {
@@ -44,6 +48,9 @@ struct MapView: View {
                 visibleRegion = context.region
             }
             .onSubmit(of: .search, searchForPOI)
+            .onChange(of: selectedPOI) {
+                getDirections()
+            }
         }
     }
     
@@ -57,6 +64,33 @@ struct MapView: View {
             guard let response = try? await search.start() else { return }
             pointsOfInterest = response.mapItems
             position = .automatic
+        }
+    }
+    
+    private func getDirections() {
+        route = nil
+        guard let sourceCoordinate = locationManager.location?.coordinate,
+              let destination = selectedPOI
+        else { return }
+        
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: sourceCoordinate))
+        request.destination = destination
+        
+        let directions = MKDirections(request: request)
+        Task {
+            let response = try? await directions.calculate()
+            let route = response?.routes.first
+            
+            withAnimation {
+                position = .camera(MapCamera(centerCoordinate: sourceCoordinate,
+                                             distance: 400,
+                                             heading: 0,
+                                             pitch: 45
+                                            ))
+            }
+            
+            self.route = route
         }
     }
 }
